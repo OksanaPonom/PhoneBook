@@ -30,16 +30,16 @@ const validationSchema = Yup.object().shape({
       excludeEmptyString: true,
     })
     .required('Name is required'),
-  phone: Yup.string()
+  number: Yup.string()
     .matches(
       /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
       {
         message:
-          'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
+          'number number must be digits and can contain spaces, dashes, parentheses and can start with +',
         excludeEmptyString: true,
       }
     )
-    .required('Phone number is required'),
+    .required('number number is required'),
 });
 
 export const FormContact = () => {
@@ -48,22 +48,22 @@ export const FormContact = () => {
 
   const initialValues = {
     name: '',
-    phone: '',
+    number: '',
   };
 
   const handleSubmit = async (values, { resetForm }) => {
-    const { name, phone } = values;
+    const { name, number } = values;
     const isAlreadyInContacts = contacts.some(
       contact =>
         contact.name.toLowerCase().trim() === name.toLowerCase().trim() ||
-        contact.phone === phone
+        contact.number === number
     );
     if (isAlreadyInContacts) {
       Notiflix.Notify.info(`${name} is already in contacts`, notiflix);
 
       return;
     }
-    dispatch(addContact({ name, phone }));
+    dispatch(addContact({ name, number }));
     resetForm();
   };
 
@@ -82,9 +82,13 @@ export const FormContact = () => {
               <Error name="name" component="div" className="error" />
             </Label>
             <Label>
-              Phone number
-              <Input type="tel" name="phone" placeholder="Enter phone number" />
-              <Error name="phone" component="div" className="error" />
+              number number
+              <Input
+                type="tel"
+                name="number"
+                placeholder="Enter number number"
+              />
+              <Error name="number" component="div" className="error" />
             </Label>
             <BtnAdd type="submit" disabled={!isValid || !dirty}>
               Add contact

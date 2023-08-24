@@ -9,14 +9,14 @@ import {
 } from './ContactItem.styled';
 import { useDispatch } from 'react-redux';
 
-export function ContactItem({ contact: { id, name, phone } }) {
+export function ContactItem({ contact: { id, name, number } }) {
   const dispatch = useDispatch();
 
   return (
     <ListItem>
       <p>
         <Name>{name}:&nbsp;</Name>
-        <Number>{phone}</Number>
+        <Number>{number}</Number>
       </p>
       <Button type="button" onClick={() => dispatch(deleteContact(id))}>
         <TrashIcon />
@@ -28,6 +28,6 @@ ContactItem.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
   }).isRequired,
 };

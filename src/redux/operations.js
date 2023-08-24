@@ -5,7 +5,7 @@ import { notiflix } from 'components/FormContact/FormContact';
 import Notiflix from 'notiflix';
 import 'notiflix';
 
-axios.defaults.baseURL = 'https://64db8489593f57e435b1120f.mockapi.io';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 export const fetchAll = createAsyncThunk(
   'contacts/fetchAll',
@@ -22,9 +22,9 @@ export const fetchAll = createAsyncThunk(
 
 export const addContact = createAsyncThunk(
   'contacts/addContact',
-  async ({ name, phone }, thunkAPI) => {
+  async ({ name, number }, thunkAPI) => {
     try {
-      const response = await axios.post('/contacts/', { name, phone });
+      const response = await axios.post('/contacts/', { name, number });
       Notiflix.Notify.info(`Contact ${name} added`, notiflix);
       return response.data;
     } catch (e) {
@@ -32,6 +32,7 @@ export const addContact = createAsyncThunk(
         `Something went wrong, try again later`,
         notiflix
       );
+
       return thunkAPI.rejectWithValue(e.message);
     }
   }
@@ -42,7 +43,7 @@ export const deleteContact = createAsyncThunk(
   async (contactId, thunkAPI) => {
     try {
       const { data } = await axios.delete(`/contacts/${contactId}`);
-      console.log(contactId);
+
       Notiflix.Notify.info(`Contact ${data.name} deleted`, notiflix);
       return data;
     } catch (e) {
