@@ -1,11 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { Form, Input, Btn } from './Login.styled';
-import React, { useState } from 'react';
+import React from 'react';
 import { logIn } from 'redux/auth/authOperations';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
@@ -17,9 +15,6 @@ const Login = () => {
         password: form.elements.password.value,
       })
     );
-    setEmail('');
-    setPassword('');
-    form.reset();
   };
 
   return (
@@ -30,8 +25,6 @@ const Login = () => {
         autoComplete="off"
         autoFocus
         placeholder="Input your email "
-        value={email}
-        onChange={e => setEmail(e.target.value)}
       />
 
       <Input
@@ -40,8 +33,6 @@ const Login = () => {
         autoComplete="off"
         autoFocus
         placeholder="Password "
-        value={password}
-        onChange={e => setPassword(e.target.value)}
       />
       <Btn type="submit">LOG IN</Btn>
     </Form>

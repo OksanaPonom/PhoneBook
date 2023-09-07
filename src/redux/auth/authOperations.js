@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Notiflix from 'notiflix';
+import 'notiflix';
+import { notiflix } from '../../components/FormContact/FormContact';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -19,8 +22,10 @@ export const register = createAsyncThunk(
 
       // After successful registration, add the token to the HTTP header
       setAuthHeader(res.data.token);
+      Notiflix.Notify.info('You are registered', notiflix);
       return res.data;
     } catch (error) {
+      Notiflix.Notify.failure('Try again, please', notiflix);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -34,6 +39,7 @@ export const logIn = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
+      Notiflix.Notify.failure('Try again, please', notiflix);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
